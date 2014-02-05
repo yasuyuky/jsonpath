@@ -1,10 +1,10 @@
 package jsonpath
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 )
 
 type Slice struct{ start, stop int }
@@ -167,8 +167,7 @@ func GetBool(decoded interface{}, path []interface{}, defaultValue bool) (bool, 
 }
 
 func DecodeString(s string) (interface{}, error) {
-	r := bytes.NewBufferString(s)
-	return DecodeReader(r)
+	return DecodeReader(strings.NewReader(s))
 }
 
 func DecodeReader(r io.Reader) (interface{}, error) {
@@ -178,32 +177,32 @@ func DecodeReader(r io.Reader) (interface{}, error) {
 	return data, err
 }
 
-func Read(s string, path []interface{}, defaultValue interface{}) (interface{}, error) {
-	data, err := DecodeString(s)
+func Read(r io.Reader, path []interface{}, defaultValue interface{}) (interface{}, error) {
+	data, err := DecodeReader(r)
 	if err != nil {
 		return nil, err
 	}
 	return Get(data, path, defaultValue)
 }
 
-func ReadString(s string, path []interface{}, defaultValue string) (string, error) {
-	data, err := DecodeString(s)
+func ReadString(r io.Reader, path []interface{}, defaultValue string) (string, error) {
+	data, err := DecodeReader(r)
 	if err != nil {
 		return defaultValue, err
 	}
 	return GetString(data, path, defaultValue)
 }
 
-func ReadNumber(s string, path []interface{}, defaultValue float64) (float64, error) {
-	data, err := DecodeString(s)
+func ReadNumber(r io.Reader, path []interface{}, defaultValue float64) (float64, error) {
+	data, err := DecodeReader(r)
 	if err != nil {
 		return defaultValue, err
 	}
 	return GetNumber(data, path, defaultValue)
 }
 
-func ReadBool(s string, path []interface{}, defaultValue bool) (bool, error) {
-	data, err := DecodeString(s)
+func ReadBool(r io.Reader, path []interface{}, defaultValue bool) (bool, error) {
+	data, err := DecodeReader(r)
 	if err != nil {
 		return defaultValue, err
 	}
