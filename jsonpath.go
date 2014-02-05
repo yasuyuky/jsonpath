@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 )
 
 type Slice struct{ start, stop int }
@@ -167,6 +168,10 @@ func GetBool(decoded interface{}, path []interface{}, defaultValue bool) (bool, 
 
 func DecodeJsonString(s string) (interface{}, error) {
 	r := bytes.NewBufferString(s)
+	return DecodeJsonReader(r)
+}
+
+func DecodeJsonReader(r io.Reader) (interface{}, error) {
 	var data interface{}
 	dec := json.NewDecoder(r)
 	err := dec.Decode(&data)
