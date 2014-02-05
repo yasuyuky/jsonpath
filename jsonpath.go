@@ -166,12 +166,12 @@ func GetBool(decoded interface{}, path []interface{}, defaultValue bool) (bool, 
 	return defaultValue, fmt.Errorf("unexpected type")
 }
 
-func DecodeJsonString(s string) (interface{}, error) {
+func DecodeString(s string) (interface{}, error) {
 	r := bytes.NewBufferString(s)
-	return DecodeJsonReader(r)
+	return DecodeReader(r)
 }
 
-func DecodeJsonReader(r io.Reader) (interface{}, error) {
+func DecodeReader(r io.Reader) (interface{}, error) {
 	var data interface{}
 	dec := json.NewDecoder(r)
 	err := dec.Decode(&data)
@@ -179,7 +179,7 @@ func DecodeJsonReader(r io.Reader) (interface{}, error) {
 }
 
 func Read(s string, path []interface{}, defaultValue interface{}) (interface{}, error) {
-	data, err := DecodeJsonString(s)
+	data, err := DecodeString(s)
 	if err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func Read(s string, path []interface{}, defaultValue interface{}) (interface{}, 
 }
 
 func ReadString(s string, path []interface{}, defaultValue string) (string, error) {
-	data, err := DecodeJsonString(s)
+	data, err := DecodeString(s)
 	if err != nil {
 		return defaultValue, err
 	}
@@ -195,7 +195,7 @@ func ReadString(s string, path []interface{}, defaultValue string) (string, erro
 }
 
 func ReadNumber(s string, path []interface{}, defaultValue float64) (float64, error) {
-	data, err := DecodeJsonString(s)
+	data, err := DecodeString(s)
 	if err != nil {
 		return defaultValue, err
 	}
@@ -203,7 +203,7 @@ func ReadNumber(s string, path []interface{}, defaultValue float64) (float64, er
 }
 
 func ReadBool(s string, path []interface{}, defaultValue bool) (bool, error) {
-	data, err := DecodeJsonString(s)
+	data, err := DecodeString(s)
 	if err != nil {
 		return defaultValue, err
 	}
