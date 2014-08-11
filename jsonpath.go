@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-type Slice struct{ start, stop int }
+type Slice struct{ Start, Stop int }
 
 type pathTypeMismatch struct{}
 type notFound struct{}
@@ -102,8 +102,8 @@ func recursiveGet(data interface{}, path []interface{}) interface{} {
 		switch data.(type) {
 		case []interface{}:
 			ret := make([]interface{}, 0)
-			start := path[0].(Slice).start
-			stop := path[0].(Slice).stop
+			start := path[0].(Slice).Start
+			stop := path[0].(Slice).Stop
 			for i, v := range data.([]interface{}) {
 				if start <= i && i < stop {
 					ret = append(ret, recursiveGet(v, path[1:]))
