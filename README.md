@@ -22,7 +22,7 @@ import (
 	"github.com/yasuyuky/jsonpath"
 )
 
-// fist you should decode string
+// first you should decode string
 data, err := jsonpath.DecodeString(json_string)
 
 // or io.Reader
