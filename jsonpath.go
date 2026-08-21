@@ -29,6 +29,8 @@ func recursiveGet(data interface{}, path []interface{}) interface{} {
 			return data
 		case map[string]interface{}:
 			return data
+		default:
+			return unknownPathType{}
 		}
 	}
 
